@@ -3,7 +3,7 @@ const { User, Thought } = require('../models');
 const thoughtController = {
 
     // Gets all existing thoughts.
-    getAllThoughts(req, res) {
+    getAllThought(req, res) {
         Thought.find({})
             .populate({ path: 'thoughts', select: '-__v' })
             .select('-__v')
@@ -14,7 +14,7 @@ const thoughtController = {
             });
     },
 
-    // Gets single thought from id.
+    // Gets a specific thought from id.
     getThoughtById({ params }, res) {
         Thought.findOne({ _id: params.id })
             .populate({ path: 'reactions', select: '-__v' })
@@ -102,12 +102,15 @@ const thoughtController = {
             });
     },
 
-    // Updates a specific thought's reaction by id.
+    // Adds a reaction to a thought.
     addReaction({ params, body }, res) {
         Thought.findOneAndUpdate(
             { _id: params.thoughtId },
-            { $addToSet: { reactions: body } },
-            { new: true, runValidators: true }
+            { $push: { reactions: body } },
+            {
+                new: true,
+                runValidators: true
+            }
         )
             .then(dbThoughtData => {
                 if (!dbThoughtData) {
@@ -127,7 +130,10 @@ const thoughtController = {
         Thought.findOneAndUpdate(
             { _id: params.thoughtId },
             { $pull: { reactions: { reactionId: body.reactionId } } },
-            { new: true, runValidators: true }
+            {
+                new: true,
+                runValidators: true
+            }
         )
             .then(dbThoughtData => {
                 if (!dbThoughtData) {
