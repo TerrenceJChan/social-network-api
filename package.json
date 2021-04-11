@@ -1,0 +1,30 @@
+{
+  "name": "social-network-api",
+  "version": "1.0.0",
+  "description": "Share thoughts with friends with this social network API.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TerrenceJChan/social-network-api.git"
+  },
+  "keywords": [
+    "node",
+    "mongodb",
+    "mongoose"
+  ],
+  "author": "TerrenceJChan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TerrenceJChan/social-network-api/issues"
+  },
+  "homepage": "https://github.com/TerrenceJChan/social-network-api#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "moment": "^2.29.1",
+    "mongoose": "^5.12.3"
+  }
+}
