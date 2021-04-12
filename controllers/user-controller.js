@@ -1,4 +1,5 @@
-const { User, Thought } = require('../models');
+const { User } = require('../models/User');
+const { Thought } = require('../models/Thought');
 
 const userController = {
 
@@ -9,7 +10,6 @@ const userController = {
             .then(dbUserData => res.json(dbUserData))
             .catch(err => {
                 console.log(err);
-                res.status(400).json(err);
             });
     },
 
@@ -36,7 +36,6 @@ const userController = {
             })
             .catch(err => {
                 console.log(err);
-                res.status(400).json(err);
             });
     },
 
@@ -46,7 +45,6 @@ const userController = {
             .then(dbUserData => res.json(dbUserData))
             .catch(err => {
                 console.log(err);
-                res.status(400).json(err);
             });
     },
 
@@ -62,7 +60,6 @@ const userController = {
             })
             .catch(err => {
                 console.log(err);
-                res.status(400).json(err);
             });
     },
 
@@ -90,12 +87,10 @@ const userController = {
                     })
                     .catch(err => {
                         console.log(err);
-                        res.status(400).json(err);
                     });
             })
             .catch(err => {
                 console.log(err);
-                res.status(400).json(err);
             });
     },
 
@@ -118,7 +113,6 @@ const userController = {
             })
             .catch(err => {
                 console.log(err);
-                res.status(400).json(err);
             });
     },
 
@@ -151,12 +145,10 @@ const userController = {
                     })
                     .catch(err => {
                         console.log(err);
-                        res.status(400).json(err);
                     });
             })
             .catch(err => {
                 console.log(err);
-                res.status(400).json(err);
             });
     }
 }

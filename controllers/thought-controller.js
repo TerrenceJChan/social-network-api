@@ -1,24 +1,18 @@
 const { User, Thought } = require('../models');
 
 const thoughtController = {
-
     // Gets all existing thoughts.
     getAllThought(req, res) {
         Thought.find({})
-            .populate({ path: 'thoughts', select: '-__v' })
-            .select('-__v')
             .then(dbThoughtData => res.json(dbThoughtData))
             .catch(err => {
                 console.log(err);
-                res.sendStatus(400);
             });
     },
 
     // Gets a specific thought from id.
     getThoughtById({ params }, res) {
         Thought.findOne({ _id: params.id })
-            .populate({ path: 'reactions', select: '-__v' })
-            .select('-__v')
             .then(dbThoughtData => {
                 if (!dbThoughtData) {
                     res.status(404).json({ message: 'This thought does not exist.' });
@@ -28,17 +22,16 @@ const thoughtController = {
             })
             .catch(err => {
                 console.log(err);
-                res.sendStatus(400);
             });
     },
 
     // Creates new thought.
-    createThought({ body }, res) {
+    createThought({ params, body }, res) {
         Thought.create(body)
-            .then(dbThoughtData => {
+            .then(({ _id }) => {
                 User.findOneAndUpdate(
-                    { _id: body.userId },
-                    { $push: { thoughts: dbThoughtData._id } },
+                    { _id: params.userId },
+                    { $push: { thoughts: _id } },
                     { new: true }
                 )
                     .then(dbUserData => {
@@ -52,7 +45,6 @@ const thoughtController = {
             })
             .catch(err => {
                 console.log(err);
-                res.sendStatus(400);
             });
     },
 
@@ -72,7 +64,6 @@ const thoughtController = {
             })
             .catch(err => {
                 console.log(err);
-                res.sendStatus(400);
             });
     },
 
@@ -93,12 +84,10 @@ const thoughtController = {
                     })
                     .catch(err => {
                         console.log(err);
-                        res.sendStatus(400);
                     });;
             })
             .catch(err => {
                 console.log(err);
-                res.sendStatus(400);
             });
     },
 
@@ -121,7 +110,6 @@ const thoughtController = {
             })
             .catch(err => {
                 console.log(err);
-                res.sendStatus(400);
             });
     },
 
@@ -144,7 +132,6 @@ const thoughtController = {
             })
             .catch(err => {
                 console.log(err);
-                res.sendStatus(400);
             });
     },
 }
