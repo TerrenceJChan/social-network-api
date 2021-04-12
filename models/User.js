@@ -1,16 +1,16 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 
 const UserSchema = new Schema({
     username: {
         type: String,
-        required: 'Please enter a username.',
-        unique: [true, 'This username is already taken!'],
+        required: true,
+        unique: true,
         trim: true,
     },
     email: {
         type: String,
-        required: 'Please enter an email address.',
-        unique: [true, 'This email is already in use!'],
+        required: true,
+        unique: true,
         trim: true,
         lowercase: true,
         validate: {
@@ -18,7 +18,6 @@ const UserSchema = new Schema({
                 return /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(email);
             }
         }
-
     },
     thoughts: [
         {
